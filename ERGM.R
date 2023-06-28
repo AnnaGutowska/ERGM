@@ -41,3 +41,12 @@ lap_model <- ergm(snet ~ edges #connections
 )
 
 summary(lap_model)
+
+#Finding the goodness of fit of this model
+gof_1 <- gof(lap_model)
+gof_1
+
+#plotting the goodness of fit in a jpg file
+jpeg("rplot.jpg")
+plot(gof_1)
+dev.off()
