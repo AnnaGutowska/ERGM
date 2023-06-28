@@ -36,7 +36,8 @@ lap_model <- ergm(snet ~ edges #connections
                   + nodecov("X4")
                   + nodecov("X13")
                   + nodecov("X26")
-                  + nodecov("X54")
+                  + nodecov("X54")#,
+                  #control=control.ergm(MCMLE.maxit= 25)
 )
 
 summary(lap_model)
