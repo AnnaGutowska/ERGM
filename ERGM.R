@@ -8,7 +8,6 @@ library(statnet)
 
 #remove unnecessary automated column 
 nodes_ergm$X <- NULL
-nodes_ergm$verified.type <- NULL
 head(nodes_ergm)
 
 links_ergm$X <- NULL
@@ -27,38 +26,27 @@ summary(lap_model)
 lap_model <- ergm(snet ~ edges + mutual)  
 summary(lap_model)
 
-#3 using all of the features
-lap_model <- ergm(snet ~ nodeofactor("verified.label") #incoming links for verification status
-                  + nodeifactor("verified.label") #outgoing links for verification status
-                  + nodeocov("X2") #adding topic weights as nodal covariates (used for continuous variables)
-                  + nodeicov("X2")
-                  + nodeocov("X4")
-                  + nodeicov("X4")
-                  + nodeocov("X13")
-                  + nodeicov("X13")
-                  + nodeocov("X26")
-                  + nodeicov("X26")
-                  + nodeocov("X54")
-                  + nodeicov("X54")
+#3 using all of the features 
+# N.B.: The average topic weights here have to be 1 or 0. As in, if the user is in the top 90th percentile of those 
+# discussing topic X, then you will tag them as TopicX = 1;  otherwise, TopicX = 0. This will allow us to specify 
+# which of the topics get people to get more edges in this network. 
+lap_model <- ergm(snet ~ nodeocov("verified")
+                  + nodeicov("verified")
+                  + nodeocov("topic2")
+                  + nodeicov("topic2")
+                  + nodeocov("topic4")
+                  + nodeicov("topic4")
+                  + nodeocov("topic13")
+                  + nodeicov("topic13")
+                  + nodeocov("topic26")
+                  + nodeicov("topic26")
+                  + nodeocov("topic54")
+                  + nodeicov("topic54")
+                  + edges 
                   + mutual
-                  + edges
 )
 
-
-# lap_model <- ergm(snet ~ edges #connections 
-#                   + mutual #reciprocity 
-#                   + gwesp(0.2, fixed=T) #Transitive closure 
-#                   + nodeicov("verified.type") #incoming links for verification status
-#                   + nodeocov("verified.type") #outgoing links for verification status
-#                   + nodecov("X2") #adding topic weights as nodal covariates (used for continuous variables)
-#                   + nodecov("X4")
-#                   + nodecov("X13")
-#                   + nodecov("X26")
-#                   + nodecov("X54")#,
-#                   #control=control.ergm(MCMLE.maxit= 25)
-# )
-
-save(lap_model, file="Model.Rdata")
+#save(lap_model, file="Model.Rdata")
 summary(lap_model)
 
 #Finding the goodness of fit of this model
@@ -66,6 +54,4 @@ gof_1 <- gof(lap_model)
 gof_1
 
 #plotting the goodness of fit in a jpg file
-jpeg("rplot.jpg")
 plot(gof_1)
-dev.off()
