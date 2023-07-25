@@ -30,19 +30,18 @@ summary(lap_model)
 # N.B.: The average topic weights here have to be 1 or 0. As in, if the user is in the top 90th percentile of those 
 # discussing topic X, then you will tag them as TopicX = 1;  otherwise, TopicX = 0. This will allow us to specify 
 # which of the topics get people to get more edges in this network. 
-lap_model <- ergm(snet ~ nodeocov("verified")
-                  + nodeicov("verified")
-                  + nodeocov("topic2")
-                  + nodeicov("topic2")
-                  + nodeocov("topic4")
-                  + nodeicov("topic4")
-                  + nodeocov("topic13")
-                  + nodeicov("topic13")
-                  + nodeocov("topic26")
-                  + nodeicov("topic26")
-                  + nodeocov("topic54")
-                  + nodeicov("topic54")
-                  + edges 
+lap_model <- ergm(snet ~ nodeocov("verified.type")
+                  + nodeicov("verified.type")
+                  + nodematch("Quad2",diff=T)
+                  + nodematch("Quad4",diff=T)
+                  + nodematch("Quad13",diff=T)
+                  + nodematch("Quad26",diff=T)
+                  + nodematch("Quad54",diff=T)
+                  + nodeocov("lowquality")
+                  + nodeicov("lowquality")
+                  + nodeocov("photo")
+                  + nodeicov("photo")
+                  + edges
                   + mutual
 )
 
