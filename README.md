@@ -1,7 +1,8 @@
 # ERGM
 
 ## What you will find here:
-In this folder you will find a folder for each ERGM approach we have taken. In each folder are the GOF results, MCML results  (after initial model convergence), the ergm model function we used, as well as a PDF of the GOF results. If any of these folders is missing some of this information, that means it did not converge. 
+In this folder you will find a folder for each ERGM approach we have taken. In each folder are the GOF results, MCML results  (after initial model convergence), the ergm model function we used, the nodes file with the appropriate features, as well as a PDF of the GOF results. If any of these folders is missing some of this information, that means it did not converge. The same edges file used for all of the attemps can be found in this ERGM folder as well as here:
+https://drive.google.com/file/d/1lQU73i-r4IO9UEVDgpzwTOFUWZ17aLgf/view?usp=drive_link
 
 
 ## Original tweet dataframes:
